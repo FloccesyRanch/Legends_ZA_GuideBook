@@ -441,7 +441,7 @@ const App = () => {
   };
 
   const uniqueTypes = ['전체', ...new Set(pokemonData.flatMap(p => p.type))];
-  const itemCategories = ['전체', ...new Set(itemData.map(i => i.category))];
+  const itemCategories = ['전체', ...new Set(itemData.filter(i => i.category !== '메가스톤').map(i => i.category))];
   const questDifficulties = ['전체', '쉬움', '보통', '어려움', '매우 어려움'];
 
   const filteredPokemon = useMemo(() => {
@@ -467,7 +467,8 @@ const App = () => {
       const matchSearch = item.name.toLowerCase().includes(itemSearchTerm.toLowerCase()) ||
                          item.location.toLowerCase().includes(itemSearchTerm.toLowerCase());
       const matchCategory = itemCategoryFilter === '전체' || item.category === itemCategoryFilter;
-      return matchSearch && matchCategory;
+      const notMegastone = item.category !== '메가스톤';
+      return matchSearch && matchCategory && notMegastone;
     });
   }, [itemSearchTerm, itemCategoryFilter]);
 
