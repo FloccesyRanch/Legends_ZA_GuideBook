@@ -1,0 +1,21 @@
+// 아이템 데이터
+export const itemData = [
+  { id: 1, name: '진화의돌 (물)', category: '진화의돌', location: '센 강변 공원 - 분수대 뒤편', image: '💎', color: 'bg-blue-100' },
+  { id: 2, name: '진화의돌 (불꽃)', category: '진화의돌', location: '산업 지구 화력발전소 - 보일러실', image: '🔥', color: 'bg-red-100' },
+  { id: 3, name: '진화의돌 (천둥)', category: '진화의돌', location: '프리즘 타워 - 전기실', image: '⚡', color: 'bg-yellow-100' },
+  { id: 4, name: '진화의돌 (리프)', category: '진화의돌', location: '보타니컬 정원 - 온실 깊숙한 곳', image: '🍃', color: 'bg-green-100' },
+  { id: 5, name: '진화의돌 (달)', category: '진화의돌', location: '구시가지 - 밤에만 나타나는 NPC', image: '🌙', color: 'bg-purple-100' },
+  { id: 6, name: '진화의돌 (태양)', category: '진화의돌', location: '프리즘 타워 꼭대기 - 낮 12시', image: '☀️', color: 'bg-orange-100' },
+  { id: 7, name: '빛나는돌', category: '진화의돌', location: '루미오스 지하 - 숨겨진 통로', image: '✨', color: 'bg-pink-100' },
+  { id: 8, name: '어둠의돌', category: '진화의돌', location: '지하 터널 - 막다른 골목', image: '🌑', color: 'bg-gray-100' },
+  { id: 9, name: '마스터볼', category: '중요 아이템', location: '스토리 완료 후 박사에게서 획득', image: '🎯', color: 'bg-purple-100' },
+  { id: 10, name: '자전거', category: '중요 아이템', location: '샹젤리제 거리 - 자전거 가게 주인 퀘스트', image: '🚲', color: 'bg-blue-100' },
+  { id: 11, name: '낚시대 (고급)', category: '중요 아이템', location: '센 강변 - 낚시꾼 NPC', image: '🎣', color: 'bg-blue-100' },
+  { id: 12, name: '비전머신 (파도타기)', category: '비전머신', location: '센 강변 공원 - 체육관 승리 후', image: '🌊', color: 'bg-cyan-100' },
+  { id: 13, name: '비전머신 (플라이)', category: '비전머신', location: '프리즘 타워 꼭대기 - 이벨타르 포획 후', image: '🦅', color: 'bg-sky-100' },
+  { id: 14, name: '메가스톤 (리자몽X)', category: '메가스톤', location: '산업 지구 - 숨겨진 연구소', image: '💠', color: 'bg-indigo-100' },
+  { id: 15, name: '메가스톤 (리자몽Y)', category: '메가스톤', location: '프리즘 타워 - 85층', image: '💠', color: 'bg-indigo-100' },
+  { id: 16, name: '메가스톤 (루카리오)', category: '메가스톤', location: '체육관 지구 - 챔피언 방어 성공', image: '💠', color: 'bg-indigo-100' },
+  { id: 17, name: '행운의 알', category: '특수 아이템', location: '카페 거리 - 매일 랜덤 NPC', image: '🥚', color: 'bg-yellow-100' },
+  { id: 18, name: '경험치 부적', category: '특수 아이템', location: '북부 상업 지구 - 포켓몬 센터 옆 건물 2층', image: '📿', color: 'bg-amber-100' },
+];

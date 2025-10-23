@@ -1,245 +1,39 @@
 import React, { useState, useMemo } from 'react';
 import { Star, MapPin, Search, X, Plus, Trash2, Edit2, Check, Package, Scroll } from 'lucide-react';
 
-// 샘플 포켓몬 데이터
-const pokemonData = [
-  { id: 1, name: '이상해씨', name_en: 'Bulbasaur', type: ['풀', '독'], location: '프리즘 타워 정원', image: '🌱' },
-  { id: 2, name: '이상해풀', name_en: 'Ivysaur', type: ['풀', '독'], location: '프리즘 타워 정원', image: '🌿' },
-  { id: 3, name: '이상해꽃', name_en: 'Venusaur', type: ['풀', '독'], location: '프리즘 타워 정원', image: '🌺' },
-  { id: 4, name: '파이리', name_en: 'Charmander', type: ['불꽃'], location: '산업 지구 화력발전소', image: '🔥' },
-  { id: 5, name: '리자드', name_en: 'Charmeleon', type: ['불꽃'], location: '산업 지구 화력발전소', image: '🦎' },
-  { id: 6, name: '리자몽', name_en: 'Charizard', type: ['불꽃', '비행'], location: '산업 지구 화력발전소', image: '🐉' },
-  { id: 7, name: '꼬부기', name_en: 'Squirtle', type: ['물'], location: '센 강변 공원', image: '🐢' },
-  { id: 8, name: '어니부기', name_en: 'Wartortle', type: ['물'], location: '센 강변 공원', image: '🐢' },
-  { id: 9, name: '거북왕', name_en: 'Blastoise', type: ['물'], location: '센 강변 공원', image: '🐚' },
-  { id: 152, name: '치코리타', name_en: 'Chikorita', type: ['풀'], location: '스타터 지급', image: '🍃' },
-  { id: 153, name: '베이리프', name_en: 'Bayleef', type: ['풀'], location: '진화', image: '🌿' },
-  { id: 154, name: '메가니움', name_en: 'Meganium', type: ['풀'], location: '진화', image: '🌸' },
-  { id: 158, name: '리아코', name_en: 'Totodile', type: ['물'], location: '스타터 지급', image: '🐊' },
-  { id: 159, name: '엘리게이', name_en: 'Croconaw', type: ['물'], location: '진화', image: '🐊' },
-  { id: 160, name: '장크로다일', name_en: 'Feraligatr', type: ['물'], location: '진화', image: '🐊' },
-  { id: 495, name: '주리비얀', name_en: 'Snivy', type: ['풀'], location: '북부 상업 지구', image: '🐍' },
-  { id: 498, name: '뚜꾸리', name_en: 'Tepig', type: ['불꽃'], location: '스타터 지급', image: '🐷' },
-  { id: 499, name: '차오꿀', name_en: 'Pignite', type: ['불꽃', '격투'], location: '진화', image: '🐖' },
-  { id: 500, name: '염무왕', name_en: 'Emboar', type: ['불꽃', '격투'], location: '진화', image: '🐗' },
-  { id: 650, name: '도치마론', name_en: 'Chespin', type: ['풀'], location: '산조르주 숲', image: '🦔' },
-  { id: 653, name: '푸호꼬', name_en: 'Fennekin', type: ['불꽃'], location: '샹젤리제 거리', image: '🦊' },
-  { id: 656, name: '개구마르', name_en: 'Froakie', type: ['물'], location: '센 강변', image: '🐸' },
-  { id: 700, name: '님피아', name_en: 'Sylveon', type: ['페어리'], location: '카페 거리', image: '🎀' },
-  { id: 716, name: '제르네아스', name_en: 'Xerneas', type: ['페어리'], location: '프리즘 타워 꼭대기', image: '🦌' },
-  { id: 717, name: '이벨타르', name_en: 'Yveltal', type: ['악', '비행'], location: '지하 터널', image: '🦅' },
-  { id: 718, name: '지가르데', name_en: 'Zygarde', type: ['드래곤', '땅'], location: '루미오스 지하', image: '🐉' },
-  { id: 25, name: '피카츄', name_en: 'Pikachu', type: ['전기'], location: '시내 곳곳', image: '⚡' },
-  { id: 26, name: '라이츄', name_en: 'Raichu', type: ['전기'], location: '진화', image: '⚡' },
-  { id: 133, name: '이브이', name_en: 'Eevee', type: ['노말'], location: '카페 지구', image: '🦊' },
-  { id: 143, name: '잠만보', name_en: 'Snorlax', type: ['노말'], location: '주거 지역', image: '😴' },
-  { id: 448, name: '루카리오', name_en: 'Lucario', type: ['격투', '강철'], location: '체육관 지구', image: '🐺' },
-  { id: 282, name: '가디안', name_en: 'Gardevoir', type: ['에스퍼', '페어리'], location: '예술 지구', image: '👗' },
-  { id: 445, name: '한카리아스', name_en: 'Garchomp', type: ['드래곤', '땅'], location: '건설 현장', image: '🦈' },
-  { id: 549, name: '드레디어', name_en: 'Lilligant', type: ['풀'], location: '보타니컬 정원', image: '🌺' },
-  { id: 609, name: '샹델라', name_en: 'Chandelure', type: ['고스트', '불꽃'], location: '구시가지', image: '🕯️' },
-];
+// 데이터 import
+import { pokemonData } from './data/pokemon';
+import { itemData } from './data/items';
+import { questData } from './data/quests';
+import { typeColors, typeEffectiveness, defensiveMatchup } from './data/types';
 
-// 아이템 데이터
-const itemData = [
-  { id: 1, name: '진화의돌 (물)', category: '진화의돌', location: '센 강변 공원 - 분수대 뒤편', image: '💎', color: 'bg-blue-100' },
-  { id: 2, name: '진화의돌 (불꽃)', category: '진화의돌', location: '산업 지구 화력발전소 - 보일러실', image: '🔥', color: 'bg-red-100' },
-  { id: 3, name: '진화의돌 (천둥)', category: '진화의돌', location: '프리즘 타워 - 전기실', image: '⚡', color: 'bg-yellow-100' },
-  { id: 4, name: '진화의돌 (리프)', category: '진화의돌', location: '보타니컬 정원 - 온실 깊숙한 곳', image: '🍃', color: 'bg-green-100' },
-  { id: 5, name: '진화의돌 (달)', category: '진화의돌', location: '구시가지 - 밤에만 나타나는 NPC', image: '🌙', color: 'bg-purple-100' },
-  { id: 6, name: '진화의돌 (태양)', category: '진화의돌', location: '프리즘 타워 꼭대기 - 낮 12시', image: '☀️', color: 'bg-orange-100' },
-  { id: 7, name: '빛나는돌', category: '진화의돌', location: '루미오스 지하 - 숨겨진 통로', image: '✨', color: 'bg-pink-100' },
-  { id: 8, name: '어둠의돌', category: '진화의돌', location: '지하 터널 - 막다른 골목', image: '🌑', color: 'bg-gray-100' },
-  { id: 9, name: '마스터볼', category: '중요 아이템', location: '스토리 완료 후 박사에게서 획득', image: '🎯', color: 'bg-purple-100' },
-  { id: 10, name: '자전거', category: '중요 아이템', location: '샹젤리제 거리 - 자전거 가게 주인 퀘스트', image: '🚲', color: 'bg-blue-100' },
-  { id: 11, name: '낚시대 (고급)', category: '중요 아이템', location: '센 강변 - 낚시꾼 NPC', image: '🎣', color: 'bg-blue-100' },
-  { id: 12, name: '비전머신 (파도타기)', category: '비전머신', location: '센 강변 공원 - 체육관 승리 후', image: '🌊', color: 'bg-cyan-100' },
-  { id: 13, name: '비전머신 (플라이)', category: '비전머신', location: '프리즘 타워 꼭대기 - 이벨타르 포획 후', image: '🦅', color: 'bg-sky-100' },
-  { id: 14, name: '메가스톤 (리자몽X)', category: '메가스톤', location: '산업 지구 - 숨겨진 연구소', image: '💠', color: 'bg-indigo-100' },
-  { id: 15, name: '메가스톤 (리자몽Y)', category: '메가스톤', location: '프리즘 타워 - 85층', image: '💠', color: 'bg-indigo-100' },
-  { id: 16, name: '메가스톤 (루카리오)', category: '메가스톤', location: '체육관 지구 - 챔피언 방어 성공', image: '💠', color: 'bg-indigo-100' },
-  { id: 17, name: '행운의 알', category: '특수 아이템', location: '카페 거리 - 매일 랜덤 NPC', image: '🥚', color: 'bg-yellow-100' },
-  { id: 18, name: '경험치 부적', category: '특수 아이템', location: '북부 상업 지구 - 포켓몬 센터 옆 건물 2층', image: '📿', color: 'bg-amber-100' },
-];
-
-// 사이드 퀘스트 데이터
-const questData = [
-  {
-    id: 1,
-    title: '잃어버린 반려 포켓몬',
-    location: '카페 거리',
-    npc: '카페 주인 마리',
-    reward: '님피아 + 5,000골드',
-    difficulty: '쉬움',
-    description: '카페 주인의 님피아가 도망쳤습니다. 예술 지구에서 찾아주세요.',
-    emoji: '🎀',
-    difficultyColor: 'text-green-600 bg-green-50'
-  },
-  {
-    id: 2,
-    title: '센 강의 수호자',
-    location: '센 강변',
-    npc: '노인 피에르',
-    reward: '진화의돌(물) + 고급 낚시대',
-    difficulty: '보통',
-    description: '센 강에 나타난 강력한 물 포켓몬을 잡아주세요.',
-    emoji: '🌊',
-    difficultyColor: 'text-blue-600 bg-blue-50'
-  },
-  {
-    id: 3,
-    title: '프리즘 타워의 비밀',
-    location: '프리즘 타워',
-    npc: '경비원 앙투안',
-    reward: '비전머신(플라이) + 경험치 부적',
-    difficulty: '어려움',
-    description: '프리즘 타워 꼭대기의 비밀을 밝혀내세요. 이벨타르와의 조우가 기다립니다.',
-    emoji: '🗼',
-    difficultyColor: 'text-orange-600 bg-orange-50'
-  },
-  {
-    id: 4,
-    title: '메가진화의 비밀',
-    location: '산업 지구',
-    npc: '연구원 로렌',
-    reward: '메가스톤(리자몽X) + 50,000골드',
-    difficulty: '어려움',
-    description: '숨겨진 연구소에서 메가진화 실험을 도와주세요.',
-    emoji: '🔬',
-    difficultyColor: 'text-orange-600 bg-orange-50'
-  },
-  {
-    id: 5,
-    title: '지하 터널의 괴소문',
-    location: '지하 터널',
-    npc: '탐험가 장',
-    reward: '어둠의돌 + 이벨타르 위치 정보',
-    difficulty: '보통',
-    description: '지하 터널 깊숙한 곳에서 이상한 소리가 들린다고 합니다.',
-    emoji: '🕳️',
-    difficultyColor: 'text-blue-600 bg-blue-50'
-  },
-  {
-    id: 6,
-    title: '보타니컬 정원 축제',
-    location: '보타니컬 정원',
-    npc: '정원사 소피',
-    reward: '진화의돌(리프) + 드레디어',
-    difficulty: '쉬움',
-    description: '정원 축제를 위해 풀 타입 포켓몬 5마리를 보여주세요.',
-    emoji: '🌺',
-    difficultyColor: 'text-green-600 bg-green-50'
-  },
-  {
-    id: 7,
-    title: '샹젤리제의 패션쇼',
-    location: '샹젤리제 거리',
-    npc: '디자이너 클로에',
-    reward: '자전거 + 푸호꼬',
-    difficulty: '쉬움',
-    description: '패션쇼에 출연할 귀여운 포켓몬을 추천해주세요.',
-    emoji: '👗',
-    difficultyColor: 'text-green-600 bg-green-50'
-  },
-  {
-    id: 8,
-    title: '구시가지의 유령',
-    location: '구시가지',
-    npc: '소녀 아멜리',
-    reward: '진화의돌(달) + 샹델라',
-    difficulty: '보통',
-    description: '밤에만 나타나는 유령 포켓몬의 정체를 밝혀주세요.',
-    emoji: '🕯️',
-    difficultyColor: 'text-blue-600 bg-blue-50'
-  },
-  {
-    id: 9,
-    title: '루미오스 챔피언 도전',
-    location: '체육관 지구',
-    npc: '챔피언 방어자',
-    reward: '메가스톤(루카리오) + 마스터볼',
-    difficulty: '매우 어려움',
-    description: '10명의 연속 도전자를 물리치고 챔피언 자리를 지켜내세요.',
-    emoji: '🏆',
-    difficultyColor: 'text-red-600 bg-red-50'
-  },
-  {
-    id: 10,
-    title: '전설의 포켓몬 제르네아스',
-    location: '프리즘 타워 꼭대기',
-    npc: '박사 플라타느',
-    reward: '메가링 + 제르네아스 조우',
-    difficulty: '매우 어려움',
-    description: '프리즘 타워에서 생명의 포켓몬 제르네아스를 만나보세요.',
-    emoji: '🦌',
-    difficultyColor: 'text-red-600 bg-red-50'
-  },
-];
-
-const typeColors = {
-  '노말': '#A8A878',
-  '불꽃': '#F08030',
-  '물': '#6890F0',
-  '전기': '#F8D030',
-  '풀': '#78C850',
-  '얼음': '#98D8D8',
-  '격투': '#C03028',
-  '독': '#A040A0',
-  '땅': '#E0C068',
-  '비행': '#A890F0',
-  '에스퍼': '#F85888',
-  '벌레': '#A8B820',
-  '바위': '#B8A038',
-  '고스트': '#705898',
-  '드래곤': '#7038F8',
-  '악': '#705848',
-  '강철': '#B8B8D0',
-  '페어리': '#EE99AC',
-};
-
-// 타입 상성표 (공격하는 타입 -> 받는 타입)
-const typeEffectiveness = {
-  '노말': { weak: [], resist: ['바위', '강철'], immune: ['고스트'] },
-  '불꽃': { weak: ['풀', '얼음', '벌레', '강철'], resist: ['불꽃', '물', '바위', '드래곤'], immune: [] },
-  '물': { weak: ['불꽃', '땅', '바위'], resist: ['물', '풀', '드래곤'], immune: [] },
-  '전기': { weak: ['물', '비행'], resist: ['전기', '풀', '드래곤'], immune: ['땅'] },
-  '풀': { weak: ['물', '땅', '바위'], resist: ['불꽃', '풀', '독', '비행', '벌레', '드래곤', '강철'], immune: [] },
-  '얼음': { weak: ['풀', '땅', '비행', '드래곤'], resist: ['불꽃', '물', '얼음', '강철'], immune: [] },
-  '격투': { weak: ['노말', '얼음', '바위', '악', '강철'], resist: ['독', '비행', '에스퍼', '벌레', '페어리'], immune: ['고스트'] },
-  '독': { weak: ['풀', '페어리'], resist: ['독', '땅', '바위', '고스트'], immune: ['강철'] },
-  '땅': { weak: ['불꽃', '전기', '독', '바위', '강철'], resist: ['풀', '벌레'], immune: ['비행'] },
-  '비행': { weak: ['풀', '격투', '벌레'], resist: ['전기', '바위', '강철'], immune: [] },
-  '에스퍼': { weak: ['격투', '독'], resist: ['에스퍼', '강철'], immune: ['악'] },
-  '벌레': { weak: ['풀', '에스퍼', '악'], resist: ['불꽃', '격투', '독', '비행', '고스트', '강철', '페어리'], immune: [] },
-  '바위': { weak: ['불꽃', '얼음', '비행', '벌레'], resist: ['격투', '땅', '강철'], immune: [] },
-  '고스트': { weak: ['에스퍼', '고스트'], resist: ['악'], immune: ['노말'] },
-  '드래곤': { weak: ['드래곤'], resist: ['강철'], immune: ['페어리'] },
-  '악': { weak: ['에스퍼', '고스트'], resist: ['격투', '악', '페어리'], immune: [] },
-  '강철': { weak: ['바위', '얼음', '페어리'], resist: ['불꽃', '물', '전기', '강철'], immune: [] },
-  '페어리': { weak: ['격투', '드래곤', '악'], resist: ['불꽃', '독', '강철'], immune: [] },
-};
-
-// 방어 상성표 (포켓몬이 받는 데미지)
-const defensiveMatchup = {
-  '노말': { weakTo: ['격투'], resistFrom: [], immuneTo: ['고스트'] },
-  '불꽃': { weakTo: ['물', '땅', '바위'], resistFrom: ['불꽃', '풀', '얼음', '벌레', '강철', '페어리'], immuneTo: [] },
-  '물': { weakTo: ['전기', '풀'], resistFrom: ['불꽃', '물', '얼음', '강철'], immuneTo: [] },
-  '전기': { weakTo: ['땅'], resistFrom: ['전기', '비행', '강철'], immuneTo: [] },
-  '풀': { weakTo: ['불꽃', '얼음', '독', '비행', '벌레'], resistFrom: ['물', '전기', '풀', '땅'], immuneTo: [] },
-  '얼음': { weakTo: ['불꽃', '격투', '바위', '강철'], resistFrom: ['얼음'], immuneTo: [] },
-  '격투': { weakTo: ['비행', '에스퍼', '페어리'], resistFrom: ['벌레', '바위', '악'], immuneTo: [] },
-  '독': { weakTo: ['땅', '에스퍼'], resistFrom: ['풀', '격투', '독', '벌레', '페어리'], immuneTo: [] },
-  '땅': { weakTo: ['물', '풀', '얼음'], resistFrom: ['독', '바위'], immuneTo: ['전기'] },
-  '비행': { weakTo: ['전기', '얼음', '바위'], resistFrom: ['풀', '격투', '벌레'], immuneTo: ['땅'] },
-  '에스퍼': { weakTo: ['벌레', '고스트', '악'], resistFrom: ['격투', '에스퍼'], immuneTo: [] },
-  '벌레': { weakTo: ['불꽃', '비행', '바위'], resistFrom: ['풀', '격투', '땅'], immuneTo: [] },
-  '바위': { weakTo: ['물', '풀', '격투', '땅', '강철'], resistFrom: ['노말', '불꽃', '독', '비행'], immuneTo: [] },
-  '고스트': { weakTo: ['고스트', '악'], resistFrom: ['독', '벌레'], immuneTo: ['노말', '격투'] },
-  '드래곤': { weakTo: ['얼음', '드래곤', '페어리'], resistFrom: ['불꽃', '물', '전기', '풀'], immuneTo: [] },
-  '악': { weakTo: ['격투', '벌레', '페어리'], resistFrom: ['고스트', '악'], immuneTo: ['에스퍼'] },
-  '강철': { weakTo: ['불꽃', '격투', '땅'], resistFrom: ['노말', '풀', '얼음', '비행', '에스퍼', '벌레', '바위', '드래곤', '강철', '페어리'], immuneTo: ['독'] },
-  '페어리': { weakTo: ['독', '강철'], resistFrom: ['격투', '벌레', '악'], immuneTo: ['드래곤'] },
-};
+/**
+ * 이미지 사용 가이드:
+ *
+ * 현재는 emoji를 사용하고 있습니다.
+ * PNG 이미지를 사용하고 싶다면:
+ *
+ * 1. public/images 폴더에 하위 폴더 생성:
+ *    - public/images/pokemon/
+ *    - public/images/items/
+ *    - public/images/quests/
+ *
+ * 2. 각 폴더에 ID에 맞는 이미지 파일 추가:
+ *    - 포켓몬: 1.png, 2.png, 3.png, ...
+ *    - 아이템: 1.png, 2.png, 3.png, ...
+ *    - 퀘스트: 1.png, 2.png, 3.png, ...
+ *
+ * 3. ImageWithFallback 컴포넌트 사용:
+ *    import ImageWithFallback from './components/ImageWithFallback';
+ *    import { getPokemonImagePath } from './utils/imageLoader';
+ *
+ *    <ImageWithFallback
+ *      src={getPokemonImagePath(pokemon.id)}
+ *      fallback={pokemon.image}
+ *      alt={pokemon.name}
+ *      className="text-5xl"
+ *    />
+ */
 
 const App = () => {
   const [favorites, setFavorites] = useState(() => {
