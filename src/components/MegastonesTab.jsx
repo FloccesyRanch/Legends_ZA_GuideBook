@@ -28,7 +28,7 @@ const MegastonesTab = () => {
               placeholder="메가스톤 이름이나 장소로 검색..."
               value={itemSearchTerm}
               onChange={(e) => setItemSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
             />
           </div>
         </div>
