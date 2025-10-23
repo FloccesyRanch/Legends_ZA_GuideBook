@@ -51,28 +51,28 @@ const PokemonModal = ({ pokemon, isFavorite, onToggleFavorite, onClose }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-lg max-w-5xl w-full p-6 max-h-[90vh] overflow-y-auto relative"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* 상단 헤더 */}
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <p className="text-sm text-gray-500">No.{pokemon.id}</p>
-            <h2 className="text-2xl font-bold text-gray-900">{pokemon.name}</h2>
-            <p className="text-gray-600">{pokemon.name_en}</p>
-          </div>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
-          >
-            <X size={24} />
-          </button>
-        </div>
+        {/* 닫기 버튼 */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10"
+        >
+          <X size={24} />
+        </button>
 
         {/* 좌우 분할 레이아웃 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* 좌측: 기존 정보들 */}
+        <div className="grid grid-cols-1 md:grid-cols-[400px_1fr] gap-6">
+          {/* 좌측: 포켓몬 정보 */}
           <div className="space-y-6">
+            {/* 포켓몬 이름 정보 */}
+            <div>
+              <p className="text-sm text-gray-500">No.{pokemon.id}</p>
+              <h2 className="text-2xl font-bold text-gray-900">{pokemon.name}</h2>
+              <p className="text-gray-600">{pokemon.name_en}</p>
+            </div>
+
             <div className="text-6xl text-center">{pokemon.image}</div>
 
             <div>
@@ -116,7 +116,7 @@ const PokemonModal = ({ pokemon, isFavorite, onToggleFavorite, onClose }) => {
           {/* 우측: 지도 이미지 */}
           <div className="flex flex-col">
             <h3 className="text-sm font-semibold text-gray-700 mb-2">위치 지도</h3>
-            <div className="bg-gray-50 rounded-lg p-4 flex-1 flex items-center justify-center min-h-[300px]">
+            <div className="bg-gray-50 rounded-lg p-4 flex-1 flex items-center justify-center min-h-[400px]">
               {mapImageSrc && !mapImageError ? (
                 <img
                   src={mapImageSrc}
