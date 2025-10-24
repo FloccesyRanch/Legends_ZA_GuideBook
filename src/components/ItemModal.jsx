@@ -70,7 +70,7 @@ const ItemModal = ({ item, onClose }) => {
         {/* 좌우 분할 레이아웃 */}
         <div className="grid grid-cols-1 md:grid-cols-[400px_1fr] gap-6">
           {/* 좌측: 아이템 정보 */}
-          <div className="flex flex-col">
+          <div className="flex flex-col min-h-[500px]">
             {/* 아이템 이름 정보 */}
             <div>
               <h2 className="text-2xl font-bold text-gray-900">{item.name}</h2>
@@ -79,9 +79,11 @@ const ItemModal = ({ item, onClose }) => {
               </span>
             </div>
 
-            <div className="text-6xl text-center my-6">{item.image}</div>
+            <div className="flex-1 flex items-center justify-center my-6">
+              <div className="text-[min(20vw,180px)]">{item.image}</div>
+            </div>
 
-            <div className="mt-auto">
+            <div>
               <h3 className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                 <MapPin size={18} />
                 획득 위치
